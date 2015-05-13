@@ -41,3 +41,11 @@ post('/recipe/:id') do
   @ingredients = Ingredient.all()
   erb(:recipe)
 end
+
+patch('/recipe/:id') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  @recipe.update({:instructions => params.fetch("instructions")})
+  @message = "Updated instructions."
+  @ingredients = Ingredient.all()
+  erb(:recipe)
+end

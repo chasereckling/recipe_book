@@ -51,3 +51,15 @@ describe("The path to add an ingredient to a recipe", {:type => :feature}) do
     expect(page).to(have_content("Apples"))
   end
 end
+
+describe("the path to add instructions to a recipe", {:type => :feature}) do
+  it("displays a form on the recipe page to update the instructions") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    visit('/')
+    click_button('recipes')
+    click_link(test_recipe.id)
+    fill_in('instructions', :with => "cook in the microwave")
+    click_button('update_instructions')
+    expect(page).to(have_content("cook in the microwave"))
+  end
+end
