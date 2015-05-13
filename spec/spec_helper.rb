@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 
-require('bundler/setup')
-Bundler.require(:default, :test)
+require('sinatra/activerecord')
+require('capybara/rspec')
 
 Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each { |file| require file }
