@@ -1,5 +1,9 @@
 <h1>Recipe details: <%= @recipe.name %></h1>
 
+<% if(@recipe.rating != nil) %>
+<h3>Rating: <%=@recipe.rating %></h3>
+<% end %>
+
 <ul>
   <% @ingredients.each() do |ingredient| %>
   <li><%= ingredient.name() %></li>
@@ -13,6 +17,8 @@
   </div>
   <button type="submit" id="add_ingredient" class="btn btn-primary">Add</button>
 </form>
+
+<br>
 
 <% if(@recipe.instructions != nil) %>
 <h2>Instructions:</h2>
@@ -35,6 +41,19 @@
 <form action="/recipe/<%=@recipe.id%>" method="post">
   <input type="hidden" name="_method" value="delete">
   <button id="delete" class="btn btn-danger">Delete Recipe</button>
+</form>
+
+<br>
+
+<h4>Please select a rating:</h4>
+<form action="/recipe/<%=@recipe.id%>/rating" method="post">
+  <input type="hidden" name="_method" value="patch">
+    <% 5.times() do |i| %>
+    <input type="radio" name="rating" id="<%=i+1%>" value="<%=i+1%>" checked><%=i+1%>
+    <br>
+    <% end %>
+    <br>
+    <button id="add_rating" class="btn btn-warning">Add Rating</button>
 </form>
 
 <br>

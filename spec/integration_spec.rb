@@ -74,3 +74,15 @@ describe("the path to delete a recipe", {:type => :feature}) do
     expect(page).to(have_no_content("Apple pie sandwich"))
   end
 end
+
+describe("the path to rate a recipe", {:type => :feature}) do
+  it("displays 5 buttons to select the rating of recipe") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    visit('/')
+    click_button('recipes')
+    click_link(test_recipe.id)
+    choose('5')
+    click_button('add_rating')
+    expect(page).to(have_content("Rating: 5"))
+  end
+end

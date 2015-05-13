@@ -58,3 +58,11 @@ delete('/recipe/:id') do
   @message = "Deleted recipe."
   erb(:recipes)
 end
+
+patch('/recipe/:id/rating') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  @recipe.update({:rating => params.fetch("rating").to_i()})
+  @message = "Updated rating."
+  @ingredients = @recipe.ingredients()
+  erb(:recipe)
+end
