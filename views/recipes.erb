@@ -1,0 +1,19 @@
+<h1>Recipes:</h1>
+
+<ul>
+  <% @recipes.each() do |recipe| %>
+    <li><a href="/recipe/<%=recipe.id()%>" id="<%=recipe.id()%>"><%= recipe.name() %></a></li>
+  <% end %>
+</ul>
+
+<form action="/recipes" method="post">
+  <div class="form-group">
+    <label for="name">Add a recipe:</label>
+    <input type="text" name="name" id="name" class="form-control">
+  </div>
+  <button type="submit" id="submit" class="btn btn-primary">Add</button>
+</form>
+
+<br>
+
+<%= @message %>
