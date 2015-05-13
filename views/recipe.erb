@@ -27,9 +27,19 @@
     <label for="name">Update instructions:</label>
     <input type="text" name="instructions" id="instructions" class="form-control">
   </div>
-  <button type="submit" id="update_instructions" class="btn btn-primary">Update Instructions</button>
+  <button id="update_instructions" class="btn btn-primary">Update Instructions</button>
 </form>
 
+<br>
+
+<form action="/recipe/<%=@recipe.id%>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button id="delete" class="btn btn-danger">Delete Recipe</button>
+</form>
+
+<br>
+
+<a href="/recipes">Back</a>
 
 <br>
 

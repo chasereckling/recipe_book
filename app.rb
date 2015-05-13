@@ -26,7 +26,7 @@ end
 
 get('/recipe/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
-  @ingredients = Ingredient.all()
+  @ingredients = @recipe.ingredients()
   erb(:recipe)
 end
 
@@ -38,7 +38,8 @@ post('/recipe/:id') do
   else
     @message = "ERROR: Invalid ingredient name."
   end
-  @ingredients = Ingredient.all()
+  @recipe.ingredients.push(new_ingredient)
+  @ingredients = @recipe.ingredients()
   erb(:recipe)
 end
 
@@ -46,6 +47,14 @@ patch('/recipe/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
   @recipe.update({:instructions => params.fetch("instructions")})
   @message = "Updated instructions."
-  @ingredients = Ingredient.all()
+  @ingredients = @recipe.ingredients()
   erb(:recipe)
+end
+
+delete('/recipe/:id') do
+  recipe = Recipe.find(params.fetch("id").to_i())
+  recipe.destroy()
+  @recipes = Recipe.all()
+  @message = "Deleted recipe."
+  erb(:recipes)
 end

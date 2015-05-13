@@ -63,3 +63,14 @@ describe("the path to add instructions to a recipe", {:type => :feature}) do
     expect(page).to(have_content("cook in the microwave"))
   end
 end
+
+describe("the path to delete a recipe", {:type => :feature}) do
+  it("displays a button on the recipe page to delete a recipe") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    visit('/')
+    click_button('recipes')
+    click_link(test_recipe.id)
+    click_button('delete')
+    expect(page).to(have_no_content("Apple pie sandwich"))
+  end
+end
