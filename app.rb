@@ -26,5 +26,18 @@ end
 
 get('/recipe/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
+  @ingredients = Ingredient.all()
+  erb(:recipe)
+end
+
+post('/recipe/:id') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  new_ingredient = Ingredient.new({:name => params.fetch('name')})
+  if(new_ingredient.save())
+    @message = "Added ingredient successfully."
+  else
+    @message = "ERROR: Invalid ingredient name."
+  end
+  @ingredients = Ingredient.all()
   erb(:recipe)
 end
