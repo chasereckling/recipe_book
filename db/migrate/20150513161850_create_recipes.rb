@@ -3,7 +3,7 @@ class CreateRecipes < ActiveRecord::Migration
     create_table(:recipes) do |t|
       t.column(:name, :string)
       t.column(:instructions, :string)
-      t.column(:rating, :int)
+      t.column(:rating, :int, :default => 0)
     end
   end
 end

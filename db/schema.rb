@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20150513210806) do
   create_table "recipes", force: :cascade do |t|
     t.string  "name"
     t.string  "instructions"
-    t.integer "rating"
+    t.integer "rating",       default: 0
   end
 
 end

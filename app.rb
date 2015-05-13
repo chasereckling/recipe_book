@@ -8,7 +8,7 @@ get('/') do
 end
 
 get('/recipes') do
-  @recipes = Recipe.all()
+  @recipes = Recipe.all().sort_by {|recipe| recipe.rating}
   @message = ""
   erb(:recipes)
 end
@@ -20,7 +20,7 @@ post('/recipes') do
   else
     @message = "ERROR: Invalid recipe name."
   end
-  @recipes = Recipe.all()
+  @recipes = Recipe.all().sort_by {|recipe| recipe.rating}
   erb(:recipes)
 end
 
@@ -54,7 +54,7 @@ end
 delete('/recipe/:id') do
   recipe = Recipe.find(params.fetch("id").to_i())
   recipe.destroy()
-  @recipes = Recipe.all()
+  @recipes = Recipe.all().sort_by {|recipe| recipe.rating}
   @message = "Deleted recipe."
   erb(:recipes)
 end

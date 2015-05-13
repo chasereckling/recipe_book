@@ -4,7 +4,9 @@ class Recipe < ActiveRecord::Base
   before_save(:capitalize_name)
 
   private
+
   define_method(:capitalize_name) do
     self.name.capitalize!()
   end
+
 end
