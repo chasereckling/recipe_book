@@ -153,3 +153,21 @@ describe("path to add the same ingredient to two different recipes", {:type => :
     expect(page).to(have_content("Flour"))
   end
 end
+
+describe("path to view categories", :type => :feature) do
+  it("displays a list of categories") do
+    visit('/')
+    click_on("categories")
+    expect(page).to(have_content("Categories:"))
+  end
+end
+
+describe("The path to add a category", {:type => :feature}) do
+  it("displays a form which adds a category to the list of categories when submitted.") do
+    visit('/')
+    click_button('categories')
+    fill_in("name", :with => "Russian")
+    click_button('add_category')
+    expect(page).to(have_content("Russian"))
+  end
+end

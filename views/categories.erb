@@ -1,0 +1,23 @@
+<h1>Categories:</h1>
+
+<ol>
+  <% @categories.each() do |category| %>
+  <li><a href="/category/<%=category.id()%>" id="<%=category.id()%>"><%= category.name() %></a></li>
+  <% end %>
+</ol>
+
+<form action="/categories" method="post">
+  <div class="form-group">
+    <label for="name">Add a category:</label>
+    <input type="text" name="name" id="name" class="form-control">
+  </div>
+  <button type="submit" id="add_category" class="btn btn-primary">Add</button>
+</form>
+
+<br>
+
+<%= @message %>
+
+<br>
+
+<a href="/">Back</a>

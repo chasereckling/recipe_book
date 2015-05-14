@@ -78,3 +78,20 @@ get('/ingredient/:id') do
   @recipes = @ingredient.recipes
   erb(:ingredient)
 end
+
+get('/categories') do
+  @message = ""
+  @categories = Category.all()
+  erb(:categories)
+end
+
+post('/categories') do
+  new_category = Category.new({:name => params.fetch('name')})
+  if(new_category.save())
+    @message = "Added category successfully."
+  else
+    @message = "ERROR: Invalid category name."
+  end
+  @categories = Category.all().sort_by {|category| category.name}
+  erb(:categories)
+end

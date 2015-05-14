@@ -4,7 +4,11 @@
   <button id="recipes" class='btn btn-primary'>See Recipes</button>
 </form>
 
-<br>
+<form action="/categories" method="get">
+  <button id="categories" class='btn btn-primary'>See Categories</button>
+</form>
+
+<h3>Ingredients Index:</h3>
 
 <ul>
   <% Ingredient.all().each() do |ingredient| %>
