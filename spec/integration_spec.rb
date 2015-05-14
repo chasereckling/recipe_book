@@ -122,3 +122,17 @@ describe("the path to select an ingredient from the recipe page to see the other
     expect(page).to(have_content('Recipes that include Apple'))
   end
 end
+
+describe("path to add an ingredient to recipe prevents user from adding duplicate ingredient", {:type => :feature}) do
+  it("displays an error message") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    visit('/')
+    click_button('recipes')
+    click_link(test_recipe.id)
+    fill_in('name', :with => 'Butter')
+    click_button('add_ingredient')
+    fill_in('name', :with => 'Butter')
+    click_button('add_ingredient')
+    expect(page).to(have_content('ERROR'))
+  end
+end

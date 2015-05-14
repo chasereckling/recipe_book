@@ -1,5 +1,5 @@
 require("bundler/setup")
-Bundler.require(:default)
+Bundler.require(:default, :test)
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
@@ -32,13 +32,23 @@ end
 
 post('/recipe/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
-  new_ingredient = Ingredient.new({:name => params.fetch('name')})
-  if(new_ingredient.save())
-    @message = "Added ingredient successfully."
-  else
-    @message = "ERROR: Invalid ingredient name."
+  new_ingredient_name = params.fetch('name')
+  new_ingredient = Ingredient.new({:name => new_ingredient_name})
+
+  begin
+    new_ingredient.save!()
+    @recipe.ingredients.push(new_ingredient)
+  rescue ActiveRecord::RecordInvalid => error
+    @message = "ERROR: Ingredient already exists."
   end
-  @recipe.ingredients.push(new_ingredient)
+
+  # if(new_ingredient.save())
+  #   @message = "Added ingredient successfully."
+  #   @recipe.ingredients.push(new_ingredient)
+  # else
+  #   @message = "ERROR: Invalid ingredient name OR ingredient already exists."
+  # end
+
   @ingredients = @recipe.ingredients()
   erb(:recipe)
 end
