@@ -23,3 +23,10 @@
 <br>
 
 <%=@message%>
+
+<br>
+
+<form action="/category/<%=@category.id%>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button id="delete" class="btn btn-danger">Delete Category</button>
+</form>

@@ -182,6 +182,18 @@ describe("path to add a recipe to a category", :type => :feature) do
     check(test_recipe.id)
     click_button('attach_recipes')
     expect(page).to(have_content("Muffin"))
-    expect(page).to(have_content("Added recipe(s)"))  
+    expect(page).to(have_content("Added recipe(s)"))
+  end
+end
+
+describe("path to delete a category", {:type => :feature}) do
+  it("displays a button on a category's page to delete the category and return to the list of categories.") do
+    test_category = Category.create({:name => "Russian"})
+    visit('/')
+    click_button('categories')
+    click_link(test_category.id)
+    click_button('delete')
+    expect(page).to(have_content("Deleted category."))
+    expect(page).to(have_no_content(test_category.name))
   end
 end

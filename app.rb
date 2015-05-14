@@ -120,3 +120,11 @@ patch('/category/:id') do
   @recipes = Recipe.where.not(id: @category.recipe_ids)
   erb(:category)
 end
+
+delete('/category/:id') do
+  category = Category.find(params.fetch("id").to_i())
+  category.destroy()
+  @categories = Category.all()
+  @message = "Deleted category."
+  erb(:categories)
+end
