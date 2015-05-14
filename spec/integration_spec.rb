@@ -86,3 +86,14 @@ describe("the path to rate a recipe", {:type => :feature}) do
     expect(page).to(have_content("Rating: 5"))
   end
 end
+
+describe("the path to select an ingredient to see its associated recipes", {:type => :feature}) do
+  it("displays a drop down menu to select an ingredient") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    test_ingredient = Ingredient.create({:name => "Apple"})
+    test_recipe.ingredients.push(test_ingredient)
+    visit('/')
+    click_link(test_ingredient.id())
+    expect(page).to(have_content('Recipes that include Apple'))
+  end
+end

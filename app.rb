@@ -66,3 +66,9 @@ patch('/recipe/:id/rating') do
   @ingredients = @recipe.ingredients()
   erb(:recipe)
 end
+
+get('/ingredient/:id') do
+  @ingredient = Ingredient.find(params.fetch("id").to_i())
+  @recipes = @ingredient.recipes
+  erb(:ingredient)
+end

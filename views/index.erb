@@ -3,3 +3,11 @@
 <form action="/recipes" method="get">
   <button id="recipes" class='btn btn-primary'>See Recipes</button>
 </form>
+
+<br>
+
+<ul>
+  <% Ingredient.all().each() do |ingredient| %>
+  <li><a href="/ingredient/<%=ingredient.id%>" id="<%=ingredient.id%>"><%=ingredient.name%></a></li>
+  <% end %>
+</ul>
