@@ -97,3 +97,28 @@ describe("the path to select an ingredient to see its associated recipes", {:typ
     expect(page).to(have_content('Recipes that include Apple'))
   end
 end
+
+describe("the path to select a recipe from the search results page", {:type => :feature}) do
+  it("displays a list of recipes containing a specific ingredient, each of which links to that recipe's page") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    test_ingredient = Ingredient.create({:name => "Apple"})
+    test_recipe.ingredients.push(test_ingredient)
+    visit('/')
+    click_link(test_ingredient.id)
+    click_link(test_recipe.id)
+    expect(page).to(have_content("Recipe details: Apple pie sandwich"))
+  end
+end
+
+describe("the path to select an ingredient from the recipe page to see the other recipes it's associated with", {:type => :feature}) do
+  it("displays an ingredient link for the associated recipes") do
+    test_recipe = Recipe.create({:name => "apple pie sandwich"})
+    test_ingredient = Ingredient.create({:name => "Apple"})
+    test_recipe.ingredients.push(test_ingredient)
+    visit('/')
+    click_button('recipes')
+    click_link(test_recipe.id)
+    click_link(test_ingredient.id)
+    expect(page).to(have_content('Recipes that include Apple'))
+  end
+end

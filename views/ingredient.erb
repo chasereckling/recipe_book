@@ -2,6 +2,6 @@
 
 <ul>
   <% @recipes.each() do |recipe| %>
-    <li><%=recipe.name%></li>
+    <li><a href="/recipe/<%=recipe.id%>" id="<%=recipe.id%>"><%=recipe.name%></li>
   <% end %>
 </ul>
