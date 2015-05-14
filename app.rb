@@ -32,23 +32,16 @@ end
 
 post('/recipe/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
-  new_ingredient_name = params.fetch('name')
-  new_ingredient = Ingredient.new({:name => new_ingredient_name})
+  new_ingredient_name = params.fetch('name').capitalize()
 
-  # binding.pry
-
-  begin
-    new_ingredient.save!()
-  rescue ActiveRecord::RecordInvalid => error
-    if(@recipe.ingredients.find_by(name: new_ingredient_name) != nil)
-      @message = "ERROR: Ingredient already exists."
-    else
-      new_ingredient = Ingredient.find_by(name: new_ingredient_name)
+  if @recipe.ingredients.find_by(name: new_ingredient_name) != nil         # if the ingredient being added is already in the recipe...
+    @message = "ERROR: Cannot add the same ingredient to a recipe twice!"  # ...return an error message and do nothing.
+  else                                                                     # otherwise,
+    new_ingredient = Ingredient.find_by(name: new_ingredient_name)         # if the ingredient being added...
+    if new_ingredient == nil                                               # ...does not already exist...
+      new_ingredient = Ingredient.new({name: new_ingredient_name})         # ...create it.
     end
-  end
-
-  if(@message == nil)
-    @recipe.ingredients.push(new_ingredient)
+    @recipe.ingredients.push(new_ingredient)                               # add the ingredient - whether preexisting or newly created - to the recipe.
     @message = "Added ingredient."
   end
 

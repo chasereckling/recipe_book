@@ -2,6 +2,7 @@ ENV['RACK_ENV'] = 'test'
 
 require('sinatra/activerecord')
 require('capybara/rspec')
+require('pry')
 
 Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each { |file| require file }
 

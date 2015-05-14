@@ -1,7 +1,7 @@
 class Ingredient < ActiveRecord::Base
   has_and_belongs_to_many(:recipes)
+  before_validation(:capitalize_name)
   validates(:name, :presence => true, :uniqueness => true)
-  before_save(:capitalize_name)
 end
 
 private

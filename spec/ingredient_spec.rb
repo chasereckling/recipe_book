@@ -12,4 +12,11 @@ describe(Ingredient) do
     expect(test_ingredient.name).to(eq("Fried dumplings"))
   end
 
+  it('Ensures case-insensitive uniqueness for ingredient names.') do
+    test_ingredient = Ingredient.create({:name => "frIed Dumplings"})
+    test_ingredient2 = Ingredient.new({:name => "frieD duMplings"})
+    expect(test_ingredient2.save()).to(eq(false))
+  end
+
+
 end
