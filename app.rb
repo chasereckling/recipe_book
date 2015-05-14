@@ -35,19 +35,22 @@ post('/recipe/:id') do
   new_ingredient_name = params.fetch('name')
   new_ingredient = Ingredient.new({:name => new_ingredient_name})
 
+  # binding.pry
+
   begin
     new_ingredient.save!()
-    @recipe.ingredients.push(new_ingredient)
   rescue ActiveRecord::RecordInvalid => error
-    @message = "ERROR: Ingredient already exists."
+    if(@recipe.ingredients.find_by(name: new_ingredient_name) != nil)
+      @message = "ERROR: Ingredient already exists."
+    else
+      new_ingredient = Ingredient.find_by(name: new_ingredient_name)
+    end
   end
 
-  # if(new_ingredient.save())
-  #   @message = "Added ingredient successfully."
-  #   @recipe.ingredients.push(new_ingredient)
-  # else
-  #   @message = "ERROR: Invalid ingredient name OR ingredient already exists."
-  # end
+  if(@message == nil)
+    @recipe.ingredients.push(new_ingredient)
+    @message = "Added ingredient."
+  end
 
   @ingredients = @recipe.ingredients()
   erb(:recipe)

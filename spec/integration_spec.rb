@@ -136,3 +136,20 @@ describe("path to add an ingredient to recipe prevents user from adding duplicat
     expect(page).to(have_content('ERROR'))
   end
 end
+
+describe("path to add the same ingredient to two different recipes", {:type => :feature}) do
+  it("allows the addition of the same ingredient to two different recipes") do
+    test_recipe = Recipe.create({:name => "muffin"})
+    test_recipe2 = Recipe.create({:name => "bagel"})
+    visit('/')
+    click_button('recipes')
+    click_link(test_recipe.id)
+    fill_in('name', :with => 'Flour')
+    click_button('add_ingredient')
+    click_link('back')
+    click_link(test_recipe2.id)
+    fill_in('name', :with => 'Flour')
+    click_button('add_ingredient')
+    expect(page).to(have_content("Flour"))
+  end
+end
