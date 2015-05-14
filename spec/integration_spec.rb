@@ -171,3 +171,17 @@ describe("The path to add a category", {:type => :feature}) do
     expect(page).to(have_content("Russian"))
   end
 end
+
+describe("path to add a recipe to a category", :type => :feature) do
+  it("displays a recipe form on a category page which add a recipe to that category") do
+    test_category = Category.create({:name => "Russian"})
+    test_recipe = Recipe.create({:name => "muffin"})
+    visit('/')
+    click_button('categories')
+    click_link(test_category.id)
+    check(test_recipe.id)
+    click_button('attach_recipes')
+    expect(page).to(have_content("Muffin"))
+    expect(page).to(have_content("Added recipe(s)"))  
+  end
+end

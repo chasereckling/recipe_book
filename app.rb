@@ -95,3 +95,28 @@ post('/categories') do
   @categories = Category.all().sort_by {|category| category.name}
   erb(:categories)
 end
+
+get('/category/:id') do
+  @category = Category.find(params.fetch('id').to_i())
+  # @recipes = Recipe.all() # change this later to exclude recipes already in the category
+  @message = ""
+  @recipes = Recipe.where.not(id: @category.recipe_ids)
+  erb(:category)
+end
+
+patch('/category/:id') do
+  @category = Category.find(params.fetch('id').to_i())
+
+  @message = "ERROR: No recipes selected"
+
+  selected_recipes = []
+  if(params.has_key?('recipe_ids'))
+    params.fetch('recipe_ids').each() do |recipe_id|
+      @category.recipes.push(Recipe.find(recipe_id.to_i()))
+    end
+    @message = "Added recipe(s)"
+  end
+
+  @recipes = Recipe.where.not(id: @category.recipe_ids)
+  erb(:category)
+end

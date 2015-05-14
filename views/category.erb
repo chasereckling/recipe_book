@@ -1,0 +1,25 @@
+<h1>Category: <%=@category.name%></h1>
+
+<h2>Recipes in this category:</h2>
+
+<ul>
+  <% @category.recipes.each() do |recipe| %>
+    <li><a href="../recipe/<%=recipe.id%>" id="<%=recipe.id%>"><%= recipe.name() %></a></li>
+  <% end %>
+</ul>
+
+<form action='/category/<%= @category.id %>' method='post'>
+  <input type="hidden" name="_method" value="patch">
+    <% @recipes.each() do |recipe| %>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="<%= recipe.id() %>" name="recipe_ids[]" value="<%= recipe.id() %>"><%= recipe.name() %>
+      </label>
+    </div>
+    <% end %>
+    <button class='btn btn-success' id="attach_recipes">Attach Recipes</button>
+</form>
+
+<br>
+
+<%=@message%>
