@@ -4,7 +4,7 @@ Recipe Book version 1.0 (05/13/15)
 What is it?
 -----------
 
-Recipe Book is a program that allows users to add and keep track of recipes. The user can add ingredients to their recipes and add recipes to categories.
+Recipe Book is a program that allows users to add and keep track of recipes. Additionally the user can add ingredients and ratings to their recipes.
 
 Setup:
 ------
