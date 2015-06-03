@@ -14,12 +14,21 @@ Recipe Book uses ruby version 2.2.0.
 1. After you download Recipe Book navigate to the 'recipe_book' file folder in your terminal then run the following command to install the Gemfile:
 
    $ bundle install
+   
+2. Run postgres in the terminal:
 
-2. Run ruby app.rb in the terminal:
+   $ postgres
+
+3. To create the database, type in the terminal:
+   
+   $ rake DB:create
+   $ rake DB:migrate
+
+4. Run ruby app.rb in the terminal:
 
    $ ruby app.rb
 
-3. In your browser navigate to the url: localhost:4567.
+5. In your browser navigate to the url: localhost:4567.
 
 Copyright and Licensing:
 ------------------------
