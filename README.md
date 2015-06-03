@@ -22,6 +22,7 @@ Recipe Book uses ruby version 2.2.0.
 3. To create the database, type in the terminal:
    
    $ rake db:create
+
    $ rake db:migrate
 
 4. Run ruby app.rb in the terminal:
